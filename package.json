@@ -1,11 +1,11 @@
 {
-  "name": "retro-backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm install --prefix ../retro-frontend npm run build --prefix ../retro-frontend "
+    "heroku-postbuild": "npm install --prefix ./client && npm run build --prefix ./client"
   },
   "keywords": [],
   "author": "",

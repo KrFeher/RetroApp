@@ -46,14 +46,12 @@ io.on('connection', socket => {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../retro-frontend/build'));
+  app.use(express.static('./client/build'));
 
   app.get('*', (req, res) =>  {
     console.log(req.url);
-    res.sendFile(path.resolve(__dirname, '../../retro-frontend', 'build', 'index.html' ));
+    res.sendFile(path.resolve(__dirname, './client', 'build', 'index.html' ));
   })
 }
-
-
 
 console.log(`The application is in ${config.get('name')} environment mode.`);
