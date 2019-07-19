@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Icon, List, Grid, Segment, Header, Divider } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { getAllOpinion } from '../actions';
+
 const io = require('socket.io-client');
 
 class AllOpinions extends Component {
@@ -29,7 +32,8 @@ class AllOpinions extends Component {
   }
 
   render() {
-    const opinions = [...this.state.opinionList];
+    // const opinions = [...this.state.opinionList];
+    const opinions = this.props.opinions;
     const badOpinions = [];
     const goodOpinions = [];
     opinions.forEach(opinion => {
@@ -41,8 +45,8 @@ class AllOpinions extends Component {
     });
     return (
       <Fragment>
-        <Grid container columns={2} stackable>
-          <Grid.Column>
+        <Grid container columns={3} stackable>
+          <Grid.Column width={7}>
             <Segment>
               <Header as='h3'> What went well?</Header>
               <Divider fitted />
@@ -62,7 +66,7 @@ class AllOpinions extends Component {
               </List>
             </Segment>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column width={7}>
             <Segment>
               <Header as='h3'> What went less well?</Header>
               <Divider fitted />
@@ -83,11 +87,23 @@ class AllOpinions extends Component {
               </List>
             </Segment>
           </Grid.Column>
+          <Grid.Column width={1} textAlign='right'>
+            <Icon name='refresh' color='black' onClick={this.props.getOpinions} link></Icon>
+          </Grid.Column>
         </Grid>
-
       </Fragment>
     )
   };
 }
 
-export default AllOpinions;
+function mapDispatchToProps(dispatch) {
+  return {
+    getOpinions: () => dispatch(getAllOpinion()),
+  }
+}
+
+const mapStateToProps = (state) => ({
+  opinions: state.opinions
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllOpinions);

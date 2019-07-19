@@ -25,7 +25,6 @@ class AddOpinions extends Component {
   //     }
 
   handleChange = (e, element) => {
-    debugger;
     if (element.type === 'checkbox') {
       this.setState({ [element.name]: element.checked })
     } else {
