@@ -52,6 +52,7 @@ if (process.env.NODE_ENV === 'production') {
     console.log(req.url);
     res.sendFile(path.resolve(__dirname, './client', 'build', 'index.html' ));
   })
+  // test
 }
 
 console.log(`The application is in ${config.get('name')} environment mode.`);
