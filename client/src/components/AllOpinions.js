@@ -32,8 +32,8 @@ class AllOpinions extends Component {
   }
 
   render() {
-    // const opinions = [...this.state.opinionList];
-    const opinions = this.props.opinions;
+    const opinions = [...this.state.opinionList];
+    // const opinions = this.props.opinions;
     const badOpinions = [];
     const goodOpinions = [];
     opinions.forEach(opinion => {

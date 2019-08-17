@@ -5,7 +5,7 @@ const config = require('config');
 const port = process.env.PORT || 3001;
 const morgan = require('morgan');
 const cors = require('cors');
-// const io = require('socket.io')(5000);
+const io = require('socket.io')(5001);
 const path = require('path');
 
 app.use(express.json());
@@ -23,7 +23,6 @@ app.post('/retro/improvements/', async (req, res) => {
   const opinions = await db.getOpinions();
   console.log(opinion);
   console.log(opinions);
-  // io.emit('new-opinions', opinions);
   res.send(opinion);
 });
 
@@ -41,9 +40,9 @@ app.delete('/retro/improvements/:id', async (req, res) => {
 
 app.listen(port, () => console.log(`Listening to port ${port}...`));
 
-// io.on('connection', socket => {
-//   socket.emit('initialise', 'Socket connection established');
-// })
+io.on('connection', socket => {
+  socket.emit('initialise', 'Socket connection established');
+})
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('./client/build'));
@@ -52,7 +51,6 @@ if (process.env.NODE_ENV === 'production') {
     console.log(req.url);
     res.sendFile(path.resolve(__dirname, './client', 'build', 'index.html' ));
   })
-  // test
 }
 
 console.log(`The application is in ${config.get('name')} environment mode.`);
