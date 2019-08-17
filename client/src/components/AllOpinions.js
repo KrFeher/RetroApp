@@ -15,7 +15,7 @@ class AllOpinions extends Component {
   }
 
   componentDidMount() {
-    const socket = io('http://localhost:5000');
+    const socket = io('http://localhost:5001');
     socket.on('new-opinions', opinions => {
       const mappedOpinions = opinions.map(opinion => {
         const { improvement, isImprovement, text, _id, createdDate } = opinion;

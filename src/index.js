@@ -23,6 +23,7 @@ app.post('/retro/improvements/', async (req, res) => {
   const opinions = await db.getOpinions();
   console.log(opinion);
   console.log(opinions);
+  io.emit('new-opinions', opinions);
   res.send(opinion);
 });
 

@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { addOpinions } from '../actions';
 import uuid from 'uuid';
 
-const io = require('socket.io-client');
-
 class AddOpinions extends Component {
   constructor(props) {
     super(props)
@@ -17,13 +15,6 @@ class AddOpinions extends Component {
       allOpinions: [],
       confirmOpen: false,
     }
-  }
-  
-  componentDidMount = () => {
-    const socket = io('http://localhost:5001');
-    socket.on('initialise', (message) => {
-      alert(message);
-    })
   }
 
   handleChange = (e, element) => {
