@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const db = require('./db');
 const config = require('config');
 const port = process.env.PORT || 3001;
 const morgan = require('morgan');
 const cors = require('cors');
-const io = require('socket.io')(5001);
 const path = require('path');
 
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(cors());
+
+server.listen(3001);
 
 app.get('/retro/improvements/', async (req, res) => {
   const opinions = await db.getOpinions();
@@ -39,7 +42,7 @@ app.delete('/retro/improvements/:id', async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`Listening to port ${port}...`));
+// app.listen(port, () => console.log(`Listening to port ${port}...`));
 
 io.on('connection', socket => {
   socket.emit('initialise', 'Socket connection established');
