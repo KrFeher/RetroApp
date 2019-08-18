@@ -4,6 +4,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const db = require('./db');
 const config = require('config');
+const port = process.env.PORT || 5000;
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use(morgan('tiny'));
 app.use(cors());
 
-server.listen(5000);
+server.listen(port);
 
 app.get('/retro/improvements/', async (req, res) => {
   const opinions = await db.getOpinions();
